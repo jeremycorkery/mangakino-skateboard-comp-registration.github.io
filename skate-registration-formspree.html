@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mangakino Flow Park — Skate Competition Registration</title>
+  <style>
+    :root{ --bg:#0f1216; --card:#171b21; --text:#eef2f7; --muted:#9aa4b2; --accent:#22d3ee; --danger:#ef4444; }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);}
+    header{padding:24px 16px;text-align:center;background:linear-gradient(135deg,#0f1216 0%, #13202f 60%, #0f1216 100%);} 
+    h1{margin:0;font-size:1.6rem;letter-spacing:.3px}
+    main{max-width:860px;margin:24px auto;padding:0 16px 40px}
+    .card{background:var(--card);border:1px solid #222933;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.35);padding:20px}
+    fieldset{border:1px solid #2a3340;border-radius:10px;margin:16px 0;padding:16px}
+    legend{padding:0 6px;color:var(--muted);font-weight:600}
+    label{display:block;margin:8px 0 4px}
+    input,select,textarea{width:100%;padding:10px 12px;border-radius:10px;border:1px solid #2a3340;background:#0f141b;color:var(--text);} 
+    input[type="checkbox"],input[type="radio"]{width:auto;display:inline-block;margin-right:8px}
+    .row{display:grid;grid-template-columns:1fr;gap:12px}
+    @media (min-width:720px){.row.two{grid-template-columns:1fr 1fr}.row.three{grid-template-columns:1fr 1fr 1fr}}
+    .help{color:var(--muted);font-size:.9rem}
+    .required::after{content:" *";color:var(--accent)}
+    .actions{display:flex;gap:12px;justify-content:flex-end;margin-top:16px}
+    button{background:var(--accent);border:none;color:#001018;padding:12px 16px;border-radius:10px;font-weight:700;cursor:pointer}
+    .link{background:transparent;color:var(--text);border:1px solid #2a3340}
+    .error{color:var(--danger);font-size:.9rem;display:none}
+    .badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#0f141b;border:1px solid #2a3340;color:var(--muted);font-size:.8rem}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Mangakino Flow Park — Skate Competition Registration</h1>
+    <div class="badge">Street • Bowl</div>
+  </header>
+  <main>
+    <div class="card">
+      <form id="regForm" method="POST" action="https://formspree.io/f/mdawvlbq">
+        <!-- Honeypot for spam bots -->
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+        <!-- Set email subject for Formspree notifications -->
+        <input type="hidden" name="_subject" value="Mangakino Flow Park Registration" />
+        <!-- Optional: redirect after submit (replace with your thank-you page URL) -->
+        <input type="hidden" name="_redirect" value="https://example.org/thanks.html" />
+
+        <fieldset>
+          <legend>Participant Details</legend>
+          <div class="row two">
+            <div>
+              <label for="name" class="required">Full name</label>
+              <input id="name" name="name" type="text" required autocomplete="name" />
+            </div>
+            <div>
+              <label for="age" class="required">Age</label>
+              <input id="age" name="age" type="number" min="1" max="99" required />
+            </div>
+          </div>
+          <div class="row three">
+            <div>
+              <label for="dob">Date of birth</label>
+              <input id="dob" name="dob" type="date" />
+            </div>
+            <div>
+              <label class="required">Gender</label>
+              <div>
+                <label><input type="radio" name="gender" value="Male" required> Male</label>
+                <label><input type="radio" name="gender" value="Female"> Female</label>
+                <label><input type="radio" name="gender" value="Non-binary"> Non-binary</label>
+                <label><input type="radio" name="gender" value="Prefer not to say"> Prefer not to say</label>
+              </div>
+            </div>
+            <div>
+              <label class="required">Event category</label>
+              <div>
+                <label><input type="checkbox" name="category" value="Street"> Street</label>
+                <label><input type="checkbox" name="category" value="Bowl"> Bowl</label>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Emergency Contact</legend>
+          <div class="row three">
+            <div>
+              <label class="required" for="em_name">Contact name</label>
+              <input id="em_name" name="emergency_name" type="text" required />
+            </div>
+            <div>
+              <label class="required" for="em_rel">Relationship</label>
+              <input id="em_rel" name="emergency_relationship" type="text" required />
+            </div>
+            <div>
+              <label class="required" for="em_phone">Phone</label>
+              <input id="em_phone" name="emergency_phone" type="tel" inputmode="tel" pattern="[+0-9 ()-]{6,}" placeholder="e.g. 021 123 4567" required />
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Medical Information</legend>
+          <div>
+            <label class="required">Any medical conditions we should know about?</label>
+            <div>
+              <label><input type="radio" name="medical_flag" value="No" required> No</label>
+              <label><input type="radio" name="medical_flag" value="Yes"> Yes</label>
+            </div>
+          </div>
+          <div>
+            <label for="medical_details">If yes, please explain</label>
+            <textarea id="medical_details" name="medical_details" rows="3" placeholder="Provide details if applicable"></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Waiver & Liability Release</legend>
+          <p class="help">By checking the box below, you acknowledge skateboarding involves risk and you agree to the liability release. If the participant is under 18, a parent/guardian must consent.</p>
+          <label class="required"><input type="checkbox" id="waiver_accept" name="waiver_accept" required> I have read and agree to the Waiver and Liability Release.</label>
+          <details>
+            <summary>Read full waiver</summary>
+            <p>I, the undersigned participant (or parent/guardian if under 18), acknowledge that skateboarding is a potentially dangerous activity. I voluntarily assume all risks associated with participation in this event. I release and hold harmless the event organizers, sponsors, staff, volunteers, and venue owners from any and all liability, claims, or demands for injury, loss, or damage arising from participation in this competition. I certify that I am physically fit to participate and have not been advised otherwise by a qualified medical professional.</p>
+          </details>
+          <div class="row two">
+            <div>
+              <label class="required" for="sig_name">Type your full name as signature</label>
+              <input id="sig_name" name="signature" type="text" required />
+            </div>
+            <div>
+              <label class="required" for="sig_date">Date</label>
+              <input id="sig_date" name="signature_date" type="date" required />
+            </div>
+          </div>
+
+          <div id="guardian" style="display:none">
+            <div class="row two">
+              <div>
+                <label for="guardian_name" class="required">Parent/Guardian name</label>
+                <input id="guardian_name" name="guardian_name" type="text" />
+              </div>
+              <div>
+                <label for="guardian_sig" class="required">Parent/Guardian signature (type full name)</label>
+                <input id="guardian_sig" name="guardian_signature" type="text" />
+              </div>
+            </div>
+            <div class="row two">
+              <div>
+                <label for="guardian_date" class="required">Date</label>
+                <input id="guardian_date" name="guardian_date" type="date" />
+              </div>
+            </div>
+          </div>
+
+          <label><input type="checkbox" id="media_release" name="media_release" value="Yes"> I grant permission for photos and videos taken during the event to be used for promotional purposes.</label>
+        </fieldset>
+
+        <div class="actions">
+          <button type="reset" class="link">Clear</button>
+          <button type="submit">Submit registration</button>
+        </div>
+        <p id="error" class="error">Please complete all required fields.</p>
+        <p id="success" class="help" style="display:none">Thanks — your registration has been submitted. Check your email for confirmation.</p>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    // Toggle guardian fields if age < 18
+    const age = document.getElementById('age');
+    const guardian = document.getElementById('guardian');
+    const guardianRequired = ['guardian_name','guardian_sig','guardian_date'].map(id=>document.getElementById(id));
+    function toggleGuardian(){
+      const a = parseInt(age.value,10);
+      const show = !isNaN(a) && a < 18;
+      guardian.style.display = show ? 'block' : 'none';
+      guardianRequired.forEach(el=>{ if(el){ el.required = show; }});
+    }
+    age.addEventListener('input', toggleGuardian);
+    toggleGuardian();
+
+    // Medical details required if Yes selected
+    const medFlag = Array.from(document.querySelectorAll('input[name="medical_flag"]'));
+    const medDetails = document.getElementById('medical_details');
+    function toggleMedical(){
+      const yes = medFlag.some(r => r.checked && r.value === 'Yes');
+      medDetails.required = yes;
+    }
+    medFlag.forEach(r=>r.addEventListener('change', toggleMedical));
+    toggleMedical();
+
+    // Client-side validation message
+    const form = document.getElementById('regForm');
+    const error = document.getElementById('error');
+    const success = document.getElementById('success');
+    form.addEventListener('submit', function(e){
+      if(!form.reportValidity()){
+        e.preventDefault();
+        error.style.display='block';
+        success.style.display='none';
+      } else {
+        error.style.display='none';
+        // Let Formspree handle redirect/confirmation; also show inline fallback
+        success.style.display='block';
+      }
+    });
+  </script>
+</body>
+</html>
