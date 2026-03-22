@@ -2,4 +2,4 @@
 Online form for skateboard competition registration
 layout: page
 title: "Skate-Comp-Registration"
-permalink: /
+permalink: /skate-registration-formspree.html
